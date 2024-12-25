@@ -9,4 +9,5 @@ import com.indra.shoppingcart.infrastructure.adapter.output.entity.CartProductEn
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CartProductEntityMapper {
     CartProductEntity modelToEntity(CartProduct cartProduct);
+    CartProduct entityToModel(CartProductEntity cartProductEntity);
 }

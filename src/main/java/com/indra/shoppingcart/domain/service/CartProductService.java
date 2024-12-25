@@ -21,7 +21,7 @@ public class CartProductService {
     private final CartRepository cartRepository;
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void createCartProduct(CartProduct cartProduct) {
+    public CartProduct createCartProduct(CartProduct cartProduct) {
 
         Product product = productRepository.getProductById(cartProduct.getProduct().getId());
         Cart cart = cartRepository.getCartByUserId(cartProduct.getCart().getUser().getId());
@@ -34,10 +34,12 @@ public class CartProductService {
         }
 
         if (Boolean.TRUE.equals(existsCartProduct)) {
-            cartProductRepository.updateQuantity(cartProduct);
+            cartProduct = cartProductRepository.updateQuantity(cartProduct);
         } else {
-            cartProductRepository.createCartProduct(cartProduct);
+            cartProduct = cartProductRepository.createCartProduct(cartProduct);
         }
+
+        return cartProduct;
 
     }
 

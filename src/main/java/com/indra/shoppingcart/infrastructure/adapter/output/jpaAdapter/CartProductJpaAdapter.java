@@ -14,22 +14,24 @@ public class CartProductJpaAdapter implements CartProductRepository {
     private final CartProductJpaRepository cartProductJpaRepository;
     private final CartProductEntityMapper cartProductEntityMapper;
 
-    public void createCartProduct(CartProduct cartProduct) {
+    public CartProduct createCartProduct(CartProduct cartProduct) {
         CartProductEntity cartProductEntity = cartProductEntityMapper.modelToEntity(cartProduct);
-        cartProductJpaRepository.save(cartProductEntity);
+        cartProductEntity = cartProductJpaRepository.save(cartProductEntity);
+        return cartProductEntityMapper.entityToModel(cartProductEntity);
     }
 
     public Boolean existsCartProduct(Integer cardId, Integer productId) {
         return cartProductJpaRepository.existsByCart_IdAndProduct_Id(cardId, productId);
     }
 
-    public void updateQuantity(CartProduct cartProduct) {
+    public CartProduct updateQuantity(CartProduct cartProduct) {
         CartProductEntity cartProductEntity = cartProductJpaRepository
                 .findByCart_IdAndProduct_Id(cartProduct.getCart().getId(), cartProduct.getProduct().getId())
                 .orElseThrow(() -> new RuntimeException("CartProduct not found"));
 
         cartProductEntity.setQuantity(cartProduct.getQuantity());
-        cartProductJpaRepository.save(cartProductEntity);
+        cartProductEntity = cartProductJpaRepository.save(cartProductEntity);
+        return cartProductEntityMapper.entityToModel(cartProductEntity);
     }
 
 }

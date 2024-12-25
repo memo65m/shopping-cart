@@ -13,6 +13,7 @@ import com.indra.shoppingcart.application.ports.input.CreateCartProductUseCase;
 import com.indra.shoppingcart.application.ports.input.CreateCartUseCase;
 import com.indra.shoppingcart.domain.model.CartProduct;
 import com.indra.shoppingcart.infrastructure.adapter.input.dto.request.CartProductRequest;
+import com.indra.shoppingcart.infrastructure.adapter.input.dto.response.CartProductResponse;
 import com.indra.shoppingcart.infrastructure.adapter.input.dto.response.ExceptionResponseDto;
 import com.indra.shoppingcart.infrastructure.adapter.input.dto.response.ResponseDto;
 import com.indra.shoppingcart.infrastructure.adapter.input.mapper.CartProductMapper;
@@ -46,15 +47,15 @@ public class CartProductController {
             @ApiResponse(responseCode = "501", description = "Not implemented", content = @Content(schema = @Schema(implementation = ExceptionResponseDto.class)))
     })
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDto<String>> addProduct(@RequestBody @Valid CartProductRequest cartProductRequest) {
+    public ResponseEntity<ResponseDto<CartProductResponse>> addProduct(@RequestBody @Valid CartProductRequest cartProductRequest) {
 
         CartProduct cartProduct = cartProductMapper.cartProductRequestToCartProduct(cartProductRequest);
         createCartUseCase.execute(cartProductRequest.getUserId());
-        createCartProductUseCase.execute(cartProduct);
+        cartProduct = createCartProductUseCase.execute(cartProduct);
 
-        ResponseDto<String> responseDto = ResponseDto.<String>builder()
+        ResponseDto<CartProductResponse> responseDto = ResponseDto.<CartProductResponse>builder()
                 .message("Operación exitosa")
-                .value("Producto agregado")
+                .value(cartProductMapper.cartProductToCartProductResponse(cartProduct))
                 .build();
 
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
