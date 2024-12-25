@@ -7,30 +7,27 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="tb_cart")
-public class CartEntity implements Serializable {
+@Table(name="tb_cart_product")
+public class CartProductEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name="coupon")
-	private CouponEntity coupon;
+	private Integer quantity;
 
 	@ManyToOne
-	@JoinColumn(name="user_creator")
-	private UserEntity user;
+	@JoinColumn(name="cart")
+	private CartEntity cart;
 
-	@OneToMany(mappedBy="cart")
-	private List<CartProductEntity> cartProducts;
+	@ManyToOne
+	@JoinColumn(name="product")
+	private ProductEntity product;
 
 }

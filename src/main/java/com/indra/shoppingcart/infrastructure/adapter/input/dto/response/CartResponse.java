@@ -1,4 +1,4 @@
-package com.indra.shoppingcart.infrastructure.adapter.input.dto;
+package com.indra.shoppingcart.infrastructure.adapter.input.dto.response;
 
 import java.io.Serializable;
 

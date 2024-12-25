@@ -1,4 +1,4 @@
-package com.indra.shoppingcart.infrastructure.adapter.input.dto;
+package com.indra.shoppingcart.infrastructure.adapter.input.dto.response;
 
 public class ExceptionResponseDto extends ResponseDto<String> {
 

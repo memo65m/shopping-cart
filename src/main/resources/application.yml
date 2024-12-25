@@ -20,3 +20,8 @@ server:
 springdoc:
   swagger-ui:
     path: /swagger-ui
+
+logging:
+  level:
+    com:
+      indra: DEBUG

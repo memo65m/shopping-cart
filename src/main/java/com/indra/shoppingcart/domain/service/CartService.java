@@ -14,4 +14,11 @@ public class CartService {
         return cartRepository.getCartById(cartId);
     }
 
+    public void createCart(Integer userId) {
+        Boolean exists = cartRepository.existsCartByUserId(userId);
+        if (Boolean.FALSE.equals(exists)) {
+            cartRepository.createCart(userId);
+        }
+    }
+
 }

@@ -14,23 +14,25 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="tb_cart")
-public class CartEntity implements Serializable {
+@Table(name="tb_product")
+public class ProductEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name="coupon")
-	private CouponEntity coupon;
+	private String name;
 
-	@ManyToOne
-	@JoinColumn(name="user_creator")
-	private UserEntity user;
+	private Integer stock;
 
-	@OneToMany(mappedBy="cart")
+	@Column(name="unit_price")
+	private double unitPrice;
+
+	@OneToMany(mappedBy="product")
 	private List<CartProductEntity> cartProducts;
+
+	@OneToMany(mappedBy="product")
+	private List<DiscountEntity> discounts;
 
 }

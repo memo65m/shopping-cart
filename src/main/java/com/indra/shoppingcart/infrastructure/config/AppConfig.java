@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.indra.shoppingcart.application.ports.input.CreateCartUseCase;
 import com.indra.shoppingcart.application.ports.input.GetCartUseCase;
 import com.indra.shoppingcart.application.ports.output.CartRepository;
 import com.indra.shoppingcart.domain.service.CartService;
@@ -32,6 +33,11 @@ public class AppConfig {
     @Bean
     GetCartUseCase getCartUseCase(CartService cartService) {
         return cartService::getCart;
+    }
+
+    @Bean
+    CreateCartUseCase createCartUseCase(CartService cartService) {
+        return cartService::createCart;
     }
 
     @Bean

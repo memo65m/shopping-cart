@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import com.indra.shoppingcart.domain.model.Cart;
-import com.indra.shoppingcart.infrastructure.adapter.input.dto.CartResponse;
+import com.indra.shoppingcart.infrastructure.adapter.input.dto.response.CartResponse;
 
 import lombok.RequiredArgsConstructor;
 

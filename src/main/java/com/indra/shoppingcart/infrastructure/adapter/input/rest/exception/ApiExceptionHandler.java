@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.indra.shoppingcart.domain.exception.ConflictException;
 import com.indra.shoppingcart.domain.exception.ForbiddenException;
 import com.indra.shoppingcart.domain.exception.NotFoundException;
-import com.indra.shoppingcart.infrastructure.adapter.input.dto.ExceptionResponseDto;
+import com.indra.shoppingcart.infrastructure.adapter.input.dto.response.ExceptionResponseDto;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
