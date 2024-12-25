@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.indra.shoppingcart.application.ports.input.CreateCartProductUseCase;
 import com.indra.shoppingcart.application.ports.input.CreateCartUseCase;
+import com.indra.shoppingcart.domain.model.CartProduct;
 import com.indra.shoppingcart.infrastructure.adapter.input.dto.request.CartProductRequest;
 import com.indra.shoppingcart.infrastructure.adapter.input.dto.response.ExceptionResponseDto;
 import com.indra.shoppingcart.infrastructure.adapter.input.dto.response.ResponseDto;
+import com.indra.shoppingcart.infrastructure.adapter.input.mapper.CartProductMapper;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -29,6 +32,8 @@ import lombok.RequiredArgsConstructor;
 public class CartProductController {
 
     private final CreateCartUseCase createCartUseCase;
+    private final CreateCartProductUseCase createCartProductUseCase;
+    private final CartProductMapper cartProductMapper;
 
     @ApiOperation(value = "Add Product", notes = "Add product to shopping cart")
     @ApiResponses(value = {
@@ -43,7 +48,9 @@ public class CartProductController {
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<String>> addProduct(@RequestBody @Valid CartProductRequest cartProductRequest) {
 
-        createCartUseCase.execute(1);
+        CartProduct cartProduct = cartProductMapper.cartProductRequestToCartProduct(cartProductRequest);
+        createCartUseCase.execute(cartProductRequest.getUserId());
+        createCartProductUseCase.execute(cartProduct);
 
         ResponseDto<String> responseDto = ResponseDto.<String>builder()
                 .message("Operación exitosa")

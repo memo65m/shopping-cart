@@ -1,23 +1,38 @@
 package com.indra.shoppingcart.infrastructure.config;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.indra.shoppingcart.application.ports.input.CreateCartProductUseCase;
 import com.indra.shoppingcart.application.ports.input.CreateCartUseCase;
 import com.indra.shoppingcart.application.ports.input.GetCartUseCase;
+import com.indra.shoppingcart.application.ports.output.CartProductRepository;
 import com.indra.shoppingcart.application.ports.output.CartRepository;
+import com.indra.shoppingcart.application.ports.output.ProductRepository;
+import com.indra.shoppingcart.domain.service.CartProductService;
 import com.indra.shoppingcart.domain.service.CartService;
 import com.indra.shoppingcart.infrastructure.adapter.output.jpaAdapter.CartJpaAdapter;
+import com.indra.shoppingcart.infrastructure.adapter.output.jpaAdapter.CartProductJpaAdapter;
+import com.indra.shoppingcart.infrastructure.adapter.output.jpaAdapter.ProductJpaAdapter;
 import com.indra.shoppingcart.infrastructure.adapter.output.mapper.CartEntityMapper;
+import com.indra.shoppingcart.infrastructure.adapter.output.mapper.CartProductEntityMapper;
+import com.indra.shoppingcart.infrastructure.adapter.output.mapper.ProductEntityMapper;
 import com.indra.shoppingcart.infrastructure.adapter.output.repository.CartJpaRepository;
+import com.indra.shoppingcart.infrastructure.adapter.output.repository.CartProductJpaRepository;
+import com.indra.shoppingcart.infrastructure.adapter.output.repository.ProductJpaRepository;
 
 @Configuration
 public class AppConfig {
-    
+
     @Bean
     CartService cartService(CartRepository cartRepository) {
         return new CartService(cartRepository);
+    }
+
+    @Bean
+    CartProductService cartProductService(CartProductRepository cartProductRepository,
+            ProductRepository productRepository, CartRepository cartRepository) {
+        return new CartProductService(cartProductRepository, productRepository, cartRepository);
     }
 
     @Bean
@@ -26,8 +41,15 @@ public class AppConfig {
     }
 
     @Bean
-    CartEntityMapper cartEntityMapper() {
-        return new CartEntityMapper(modelMapper());
+    CartProductRepository getCartProductRepository(CartProductJpaRepository cartProductJpaRepository,
+            CartProductEntityMapper cartProductEntityMapper) {
+        return new CartProductJpaAdapter(cartProductJpaRepository, cartProductEntityMapper);
+    }
+
+    @Bean
+    ProductRepository getProductRepository(ProductJpaRepository productJpaRepository,
+            ProductEntityMapper productEntityMapper) {
+        return new ProductJpaAdapter(productJpaRepository, productEntityMapper);
     }
 
     @Bean
@@ -41,9 +63,8 @@ public class AppConfig {
     }
 
     @Bean
-    ModelMapper modelMapper() {
-        ModelMapper modelMapper = new ModelMapper();
-        return modelMapper;
+    CreateCartProductUseCase createCartProductUseCase(CartProductService cartProductService) {
+        return cartProductService::createCartProduct;
     }
 
 }

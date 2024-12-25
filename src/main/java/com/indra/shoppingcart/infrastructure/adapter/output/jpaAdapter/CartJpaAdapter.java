@@ -31,4 +31,10 @@ public class CartJpaAdapter implements CartRepository {
         cartJpaRepository.save(cart);
     }
 
+    public Cart getCartByUserId(Integer userId) {
+        CartEntity cart = cartJpaRepository.findByUser_Id(userId)
+                .orElseThrow(() -> new RuntimeException("Cart not found"));
+        return cartEntityMapper.entityToModel(cart);
+    }
+
 }

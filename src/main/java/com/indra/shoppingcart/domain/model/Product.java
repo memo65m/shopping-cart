@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cart {
+public class Product {
     public Integer id;
-    public User user;
+    public Integer stock;
 }
