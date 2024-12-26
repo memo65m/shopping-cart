@@ -1,6 +1,0 @@
-1. Crear base de datos ecommerce
-2. Ejecutar scripts/1.DDL.sql
-3. Ejecutar scripts/2.DML.sql
-
-
-http://localhost:8080/swagger-ui/index.html
