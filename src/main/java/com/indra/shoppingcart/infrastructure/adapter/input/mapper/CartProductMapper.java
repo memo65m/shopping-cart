@@ -19,6 +19,7 @@ public interface CartProductMapper {
     @Mapping(source = "cartProductId", target = "id")
     CartProduct updateCartProductRequestToCartProduct(UpdateCartProductRequest updateCartProductRequest);
 
+    @Mapping(target = "product", ignore = true)
     CartProductResponse cartProductToCartProductResponse(CartProduct cartProduct);
 
 }

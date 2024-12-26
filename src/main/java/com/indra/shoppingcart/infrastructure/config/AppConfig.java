@@ -56,7 +56,7 @@ public class AppConfig {
 
     @Bean
     GetCartUseCase getCartUseCase(CartService cartService) {
-        return cartService::getCart;
+        return cartService::getCartByUser;
     }
 
     @Bean

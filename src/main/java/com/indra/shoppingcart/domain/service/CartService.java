@@ -14,8 +14,13 @@ public class CartService {
     private final CartRepository cartRepository;
 
     @Transactional(readOnly = true)
-    public Cart getCart(Integer cartId) {
-        return cartRepository.getCartById(cartId);
+    public Cart getCartByUser(Integer userId) {
+        Boolean exists = cartRepository.existsCartByUserId(userId);
+        Cart cart = Cart.builder().build();
+        if (Boolean.TRUE.equals(exists)) {
+            cart = cartRepository.getCartByUserId(userId);
+        }
+        return cart;
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)

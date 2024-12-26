@@ -27,7 +27,7 @@ public class ProductEntity implements Serializable {
 	private Integer stock;
 
 	@Column(name="unit_price")
-	private double unitPrice;
+	private Double unitPrice;
 
 	@OneToMany(mappedBy="product")
 	private List<CartProductEntity> cartProducts;

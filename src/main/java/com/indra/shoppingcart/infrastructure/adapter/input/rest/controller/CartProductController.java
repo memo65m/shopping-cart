@@ -54,7 +54,7 @@ public class CartProductController {
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ExceptionResponseDto.class))),
             @ApiResponse(responseCode = "501", description = "Not implemented", content = @Content(schema = @Schema(implementation = ExceptionResponseDto.class)))
     })
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<CartProductResponse>> addProduct(@RequestBody @Valid CartProductRequest cartProductRequest) {
 
         CartProduct cartProduct = cartProductMapper.cartProductRequestToCartProduct(cartProductRequest);
@@ -80,7 +80,7 @@ public class CartProductController {
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ExceptionResponseDto.class))),
             @ApiResponse(responseCode = "501", description = "Not implemented", content = @Content(schema = @Schema(implementation = ExceptionResponseDto.class)))
     })
-    @DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<String>> deleteProduct(@RequestBody @Valid DeleteCartProductRequest request) {
 
 
@@ -105,7 +105,7 @@ public class CartProductController {
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ExceptionResponseDto.class))),
             @ApiResponse(responseCode = "501", description = "Not implemented", content = @Content(schema = @Schema(implementation = ExceptionResponseDto.class)))
     })
-    @PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto<String>> updateProduct(@RequestBody @Valid UpdateCartProductRequest request) {
 
         CartProduct cartProduct = cartProductMapper.updateCartProductRequestToCartProduct(request);

@@ -14,12 +14,7 @@ public class CartJpaAdapter implements CartRepository {
 
     private final CartJpaRepository cartJpaRepository;
     private final CartEntityMapper cartEntityMapper;
-
-    public Cart getCartById(Integer cartId) {
-        CartEntity cart = cartJpaRepository.findById(cartId).orElseThrow();
-        return cartEntityMapper.entityToModel(cart);
-    }
-
+    
     public Boolean existsCartByUserId(Integer userId) {
         return cartJpaRepository.existsByUser_Id(userId);
     }
