@@ -5,6 +5,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 
+import com.indra.shoppingcart.domain.constant.Status;
 import com.indra.shoppingcart.domain.model.Coupon;
 import com.indra.shoppingcart.infrastructure.adapter.output.entity.CouponEntity;
 
@@ -19,9 +20,9 @@ public interface CouponEntityMapper {
             
             long currentTimeMillis = System.currentTimeMillis();
             if (currentTimeMillis >= couponEntity.getStartDate().getTime() && currentTimeMillis <= couponEntity.getExpirationDate().getTime()) {
-                coupon.status("ACTIVE");
+                coupon.status(Status.ACTIVE);
             } else {
-                coupon.status("INACTIVE");
+                coupon.status(Status.INACTIVE);
             }
 
 

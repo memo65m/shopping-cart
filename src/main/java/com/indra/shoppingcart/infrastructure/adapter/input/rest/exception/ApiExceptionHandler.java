@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.indra.shoppingcart.domain.exception.BadRequestException;
 import com.indra.shoppingcart.domain.exception.ConflictException;
 import com.indra.shoppingcart.domain.exception.ForbiddenException;
 import com.indra.shoppingcart.domain.exception.NotFoundException;
@@ -51,7 +52,8 @@ public class ApiExceptionHandler {
             org.springframework.http.converter.HttpMessageNotReadableException.class,
             MethodArgumentNotValidException.class,
             InvalidDataAccessApiUsageException.class,
-            NullPointerException.class
+            NullPointerException.class,
+            BadRequestException.class
     })
     @ResponseBody
     public ExceptionResponseDto badRequest(HttpServletRequest request, Exception exception) {

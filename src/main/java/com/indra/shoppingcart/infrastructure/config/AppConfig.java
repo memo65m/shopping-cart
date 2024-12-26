@@ -3,6 +3,7 @@ package com.indra.shoppingcart.infrastructure.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.indra.shoppingcart.application.ports.input.AssignCouponUseCase;
 import com.indra.shoppingcart.application.ports.input.CreateCartProductUseCase;
 import com.indra.shoppingcart.application.ports.input.CreateCartUseCase;
 import com.indra.shoppingcart.application.ports.input.DeleteCartProductUseCase;
@@ -10,25 +11,29 @@ import com.indra.shoppingcart.application.ports.input.GetCartUseCase;
 import com.indra.shoppingcart.application.ports.input.UpdateCartProductUseCase;
 import com.indra.shoppingcart.application.ports.output.CartProductRepository;
 import com.indra.shoppingcart.application.ports.output.CartRepository;
+import com.indra.shoppingcart.application.ports.output.CouponRepository;
 import com.indra.shoppingcart.application.ports.output.ProductRepository;
 import com.indra.shoppingcart.domain.service.CartProductService;
 import com.indra.shoppingcart.domain.service.CartService;
 import com.indra.shoppingcart.infrastructure.adapter.output.jpaAdapter.CartJpaAdapter;
 import com.indra.shoppingcart.infrastructure.adapter.output.jpaAdapter.CartProductJpaAdapter;
+import com.indra.shoppingcart.infrastructure.adapter.output.jpaAdapter.CouponJpaAdapter;
 import com.indra.shoppingcart.infrastructure.adapter.output.jpaAdapter.ProductJpaAdapter;
 import com.indra.shoppingcart.infrastructure.adapter.output.mapper.CartEntityMapper;
 import com.indra.shoppingcart.infrastructure.adapter.output.mapper.CartProductEntityMapper;
+import com.indra.shoppingcart.infrastructure.adapter.output.mapper.CouponEntityMapper;
 import com.indra.shoppingcart.infrastructure.adapter.output.mapper.ProductEntityMapper;
 import com.indra.shoppingcart.infrastructure.adapter.output.repository.CartJpaRepository;
 import com.indra.shoppingcart.infrastructure.adapter.output.repository.CartProductJpaRepository;
+import com.indra.shoppingcart.infrastructure.adapter.output.repository.CouponJpaRepository;
 import com.indra.shoppingcart.infrastructure.adapter.output.repository.ProductJpaRepository;
 
 @Configuration
 public class AppConfig {
 
     @Bean
-    CartService cartService(CartRepository cartRepository) {
-        return new CartService(cartRepository);
+    CartService cartService(CartRepository cartRepository, CouponRepository couponRepository) {
+        return new CartService(cartRepository, couponRepository);
     }
 
     @Bean
@@ -55,6 +60,12 @@ public class AppConfig {
     }
 
     @Bean
+    CouponRepository getCouponRepository(CouponJpaRepository couponJpaRepository,
+            CouponEntityMapper couponEntityMapper) {
+        return new CouponJpaAdapter(couponJpaRepository, couponEntityMapper);
+    }
+
+    @Bean
     GetCartUseCase getCartUseCase(CartService cartService) {
         return cartService::getCartByUser;
     }
@@ -62,6 +73,11 @@ public class AppConfig {
     @Bean
     CreateCartUseCase createCartUseCase(CartService cartService) {
         return cartService::createCart;
+    }
+
+    @Bean
+    AssignCouponUseCase assignCouponUseCase(CartService cartService) {
+        return cartService::assignCoupon;
     }
 
     @Bean

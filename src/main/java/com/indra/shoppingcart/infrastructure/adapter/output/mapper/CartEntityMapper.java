@@ -10,6 +10,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 
+import com.indra.shoppingcart.domain.constant.Status;
 import com.indra.shoppingcart.domain.model.Cart;
 import com.indra.shoppingcart.domain.model.Coupon;
 import com.indra.shoppingcart.infrastructure.adapter.output.entity.CartEntity;
@@ -57,8 +58,8 @@ public interface CartEntityMapper {
 
             Coupon coupon = cartTmp.getCoupon();
             Double totalTmp = cartTmp.getSubTotal() - (discount + discountCoupon);
-            boolean isCouponInactive = coupon == null || "INACTIVE".equals(coupon.getStatus());
-            boolean isCouponActive = coupon != null && "ACTIVE".equals(coupon.getStatus());
+            boolean isCouponInactive = coupon == null || Status.INACTIVE.equals(coupon.getStatus());
+            boolean isCouponActive = coupon != null && Status.ACTIVE.equals(coupon.getStatus());
 
             if (isCouponInactive) {
                 cart.total(cartTmp.getSubTotal() - discount);
@@ -66,7 +67,7 @@ public interface CartEntityMapper {
             } else if (isCouponActive && totalTmp < 0) {
                 cart.total(cartTmp.getSubTotal() - discount);
                 cart.discountCoupon(0.0);
-                coupon.setStatus("INVALID_FOR_NEGATIVE_BALANCE");
+                coupon.setStatus(Status.INVALID_FOR_NEGATIVE_BALANCE);
                 cart.coupon(coupon);
             } else {
                 cart.total(totalTmp);

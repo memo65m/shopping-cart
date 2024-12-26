@@ -6,4 +6,5 @@ public interface CartRepository {
     Boolean existsCartByUserId(Integer userId);
     void createCart(Integer userId);
     Cart getCartByUserId(Integer userId);
+    void updateCoupon(Integer userId, Integer couponId);
 }
