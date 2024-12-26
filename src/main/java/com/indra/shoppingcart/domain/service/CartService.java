@@ -5,10 +5,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.indra.shoppingcart.application.ports.output.CartRepository;
 import com.indra.shoppingcart.application.ports.output.CouponRepository;
+import com.indra.shoppingcart.application.ports.output.UserRepository;
 import com.indra.shoppingcart.domain.constant.Status;
 import com.indra.shoppingcart.domain.exception.BadRequestException;
 import com.indra.shoppingcart.domain.model.Cart;
 import com.indra.shoppingcart.domain.model.Coupon;
+import com.indra.shoppingcart.domain.model.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +19,7 @@ public class CartService {
 
     private final CartRepository cartRepository;
     private final CouponRepository couponRepository;
+    private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
     public Cart getCartByUser(Integer userId) {
@@ -30,9 +33,10 @@ public class CartService {
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void createCart(Integer userId) {
+        User user = userRepository.getUserById(userId);
         Boolean exists = cartRepository.existsCartByUserId(userId);
         if (Boolean.FALSE.equals(exists)) {
-            cartRepository.createCart(userId);
+            cartRepository.createCart(user.getId());
         }
     }
 

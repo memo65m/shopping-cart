@@ -15,10 +15,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.indra.shoppingcart.application.ports.output.CartRepository;
 import com.indra.shoppingcart.application.ports.output.CouponRepository;
+import com.indra.shoppingcart.application.ports.output.UserRepository;
 import com.indra.shoppingcart.domain.constant.Status;
 import com.indra.shoppingcart.domain.exception.BadRequestException;
 import com.indra.shoppingcart.domain.model.Cart;
 import com.indra.shoppingcart.domain.model.Coupon;
+import com.indra.shoppingcart.domain.model.User;
 
 @ExtendWith(MockitoExtension.class)
 class CartServiceTest {
@@ -28,6 +30,9 @@ class CartServiceTest {
 
     @Mock
     private CouponRepository couponRepository;
+
+    @Mock
+    private UserRepository userRepository;
 
     @InjectMocks
     private CartService cartService;
@@ -61,7 +66,9 @@ class CartServiceTest {
     @Test
     void testCreateCart_CartDoesNotExist() {
         Integer userId = 1;
+        User user = User.builder().id(userId).build();
         when(cartRepository.existsCartByUserId(userId)).thenReturn(false);
+        when(userRepository.getUserById(userId)).thenReturn(user);
 
         cartService.createCart(userId);
 
@@ -72,7 +79,9 @@ class CartServiceTest {
     @Test
     void testCreateCart_CartExists() {
         Integer userId = 1;
+        User user = User.builder().id(userId).build();
         when(cartRepository.existsCartByUserId(userId)).thenReturn(true);
+        when(userRepository.getUserById(userId)).thenReturn(user);
 
         cartService.createCart(userId);
 

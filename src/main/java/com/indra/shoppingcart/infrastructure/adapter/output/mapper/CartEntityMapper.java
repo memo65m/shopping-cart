@@ -71,7 +71,7 @@ public interface CartEntityMapper {
                 cart.coupon(coupon);
             } else {
                 cart.total(totalTmp);
-                cart.discountCoupon(discountCoupon);
+                cart.discountCoupon(BigDecimal.valueOf(discountCoupon).setScale(3, RoundingMode.HALF_UP).doubleValue());
             }
 
             Double total = BigDecimal.valueOf(cart.build().getTotal()).setScale(3, RoundingMode.HALF_UP).doubleValue();

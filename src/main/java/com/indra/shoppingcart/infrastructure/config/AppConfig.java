@@ -13,27 +13,32 @@ import com.indra.shoppingcart.application.ports.output.CartProductRepository;
 import com.indra.shoppingcart.application.ports.output.CartRepository;
 import com.indra.shoppingcart.application.ports.output.CouponRepository;
 import com.indra.shoppingcart.application.ports.output.ProductRepository;
+import com.indra.shoppingcart.application.ports.output.UserRepository;
 import com.indra.shoppingcart.domain.service.CartProductService;
 import com.indra.shoppingcart.domain.service.CartService;
 import com.indra.shoppingcart.infrastructure.adapter.output.jpa.CartJpaAdapter;
 import com.indra.shoppingcart.infrastructure.adapter.output.jpa.CartProductJpaAdapter;
 import com.indra.shoppingcart.infrastructure.adapter.output.jpa.CouponJpaAdapter;
 import com.indra.shoppingcart.infrastructure.adapter.output.jpa.ProductJpaAdapter;
+import com.indra.shoppingcart.infrastructure.adapter.output.jpa.UserJpaAdapter;
 import com.indra.shoppingcart.infrastructure.adapter.output.mapper.CartEntityMapper;
 import com.indra.shoppingcart.infrastructure.adapter.output.mapper.CartProductEntityMapper;
 import com.indra.shoppingcart.infrastructure.adapter.output.mapper.CouponEntityMapper;
 import com.indra.shoppingcart.infrastructure.adapter.output.mapper.ProductEntityMapper;
+import com.indra.shoppingcart.infrastructure.adapter.output.mapper.UserEntityMapper;
 import com.indra.shoppingcart.infrastructure.adapter.output.repository.CartJpaRepository;
 import com.indra.shoppingcart.infrastructure.adapter.output.repository.CartProductJpaRepository;
 import com.indra.shoppingcart.infrastructure.adapter.output.repository.CouponJpaRepository;
 import com.indra.shoppingcart.infrastructure.adapter.output.repository.ProductJpaRepository;
+import com.indra.shoppingcart.infrastructure.adapter.output.repository.UserJpaRepository;
 
 @Configuration
 public class AppConfig {
 
     @Bean
-    CartService cartService(CartRepository cartRepository, CouponRepository couponRepository) {
-        return new CartService(cartRepository, couponRepository);
+    CartService cartService(CartRepository cartRepository, CouponRepository couponRepository,
+            UserRepository userRepository) {
+        return new CartService(cartRepository, couponRepository, userRepository);
     }
 
     @Bean
@@ -63,6 +68,11 @@ public class AppConfig {
     CouponRepository getCouponRepository(CouponJpaRepository couponJpaRepository,
             CouponEntityMapper couponEntityMapper) {
         return new CouponJpaAdapter(couponJpaRepository, couponEntityMapper);
+    }
+
+    @Bean
+    UserRepository getUserRepository(UserJpaRepository userJpaRepository, UserEntityMapper userEntityMapper) {
+        return new UserJpaAdapter(userJpaRepository, userEntityMapper);
     }
 
     @Bean
