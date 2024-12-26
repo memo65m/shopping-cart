@@ -1,4 +1,4 @@
-package com.indra.shoppingcart.infrastructure.adapter.output.jpaAdapter;
+package com.indra.shoppingcart.infrastructure.adapter.output.jpa;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -19,7 +19,7 @@ import com.indra.shoppingcart.infrastructure.adapter.output.mapper.ProductEntity
 import com.indra.shoppingcart.infrastructure.adapter.output.repository.ProductJpaRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class ProductJpaAdapterTest {
+class ProductJpaAdapterTest {
 
     @Mock
     private ProductJpaRepository productJpaRepository;
@@ -31,7 +31,7 @@ public class ProductJpaAdapterTest {
     private ProductJpaAdapter productJpaAdapter;
 
     @Test
-    public void testGetProductById_Success() {
+    void testGetProductById_Success() {
         Integer productId = 1;
         ProductEntity productEntity = new ProductEntity();
         Product product = new Product();
@@ -45,7 +45,7 @@ public class ProductJpaAdapterTest {
     }
 
     @Test
-    public void testGetProductById_NotFound() {
+    void testGetProductById_NotFound() {
         Integer productId = 1;
 
         when(productJpaRepository.findById(productId)).thenReturn(Optional.empty());

@@ -1,4 +1,4 @@
-package com.indra.shoppingcart.infrastructure.adapter.output.jpaAdapter;
+package com.indra.shoppingcart.infrastructure.adapter.output.jpa;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -24,7 +24,7 @@ import com.indra.shoppingcart.infrastructure.adapter.output.mapper.CartEntityMap
 import com.indra.shoppingcart.infrastructure.adapter.output.repository.CartJpaRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class CartJpaAdapterTest {
+class CartJpaAdapterTest {
 
     @Mock
     private CartJpaRepository cartJpaRepository;
@@ -36,7 +36,7 @@ public class CartJpaAdapterTest {
     private CartJpaAdapter cartJpaAdapter;
 
     @Test
-    public void testExistsCartByUserId() {
+    void testExistsCartByUserId() {
         Integer userId = 1;
         when(cartJpaRepository.existsByUser_Id(userId)).thenReturn(true);
 
@@ -47,7 +47,7 @@ public class CartJpaAdapterTest {
     }
 
     @Test
-    public void testCreateCart() {
+    void testCreateCart() {
         Integer userId = 1;
         CartEntity cartEntity = CartEntity.builder()
                 .user(UserEntity.builder().id(userId).build())
@@ -59,7 +59,7 @@ public class CartJpaAdapterTest {
     }
 
     @Test
-    public void testGetCartByUserId() {
+    void testGetCartByUserId() {
         Integer userId = 1;
         CartEntity cartEntity = CartEntity.builder().id(1).build();
         Cart cart = new Cart();
@@ -75,7 +75,7 @@ public class CartJpaAdapterTest {
     }
 
     @Test
-    public void testGetCartByUserId_NotFound() {
+    void testGetCartByUserId_NotFound() {
         Integer userId = 1;
         when(cartJpaRepository.findByUser_Id(userId)).thenReturn(Optional.empty());
 
@@ -84,7 +84,7 @@ public class CartJpaAdapterTest {
     }
 
     @Test
-    public void testUpdateCoupon() {
+    void testUpdateCoupon() {
         Integer userId = 1;
         Integer couponId = 1;
         CartEntity cartEntity = CartEntity.builder().id(1).build();
@@ -98,7 +98,7 @@ public class CartJpaAdapterTest {
     }
 
     @Test
-    public void testUpdateCoupon_NotFound() {
+    void testUpdateCoupon_NotFound() {
         Integer userId = 1;
         Integer couponId = 1;
         when(cartJpaRepository.findByUser_Id(userId)).thenReturn(Optional.empty());

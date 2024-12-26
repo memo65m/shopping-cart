@@ -25,7 +25,7 @@ import com.indra.shoppingcart.domain.model.Product;
 import com.indra.shoppingcart.domain.model.User;
 
 @ExtendWith(MockitoExtension.class)
-public class CartProductServiceTest {
+class CartProductServiceTest {
 
     @Mock
     private CartProductRepository cartProductRepository;
@@ -40,7 +40,7 @@ public class CartProductServiceTest {
     private CartProductService cartProductService;
 
     @Test
-    public void testCreateCartProduct() {
+    void testCreateCartProduct() {
 
         Cart cart = Cart.builder()
                 .id(1)
@@ -70,7 +70,7 @@ public class CartProductServiceTest {
     }
 
     @Test
-    public void testCreateCartProductWithInsufficientStock() {
+    void testCreateCartProductWithInsufficientStock() {
 
         Cart cart = Cart.builder()
                 .id(1)
@@ -98,7 +98,7 @@ public class CartProductServiceTest {
     }
 
     @Test
-    public void testDeleteCartProduct() {
+    void testDeleteCartProduct() {
         doNothing().when(cartProductRepository).deleteCartProduct(anyInt(), anyInt());
 
         cartProductService.deleteCartProduct(1, 1);
@@ -107,7 +107,7 @@ public class CartProductServiceTest {
     }
 
     @Test
-    public void testUpdateCartProduct() {
+    void testUpdateCartProduct() {
 
         Cart cart = Cart.builder()
                 .id(1)
@@ -140,7 +140,7 @@ public class CartProductServiceTest {
     }
 
     @Test
-    public void testUpdateCartProductWithZeroQuantity() {
+    void testUpdateCartProductWithZeroQuantity() {
 
         Cart cart = Cart.builder()
                 .id(1)

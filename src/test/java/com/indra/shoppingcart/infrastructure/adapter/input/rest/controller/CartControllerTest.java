@@ -22,7 +22,7 @@ import com.indra.shoppingcart.infrastructure.adapter.input.dto.response.CartResp
 import com.indra.shoppingcart.infrastructure.adapter.input.mapper.CartMapper;
 
 @WebMvcTest(CartController.class)
-public class CartControllerTest {
+class CartControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -40,7 +40,7 @@ public class CartControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void testGetCartByUser() throws Exception {
+    void testGetCartByUser() throws Exception {
         Cart cart = new Cart();
         CartResponse cartResponse = new CartResponse();
         when(getCartUseCase.execute(anyInt())).thenReturn(cart);
@@ -53,7 +53,7 @@ public class CartControllerTest {
     }
 
     @Test
-    public void testAssignCoupon() throws Exception {
+    void testAssignCoupon() throws Exception {
         AssignCouponRequest request = new AssignCouponRequest();
         request.setUserId(1);
         request.setCouponCode("COUPON123");

@@ -27,7 +27,7 @@ import com.indra.shoppingcart.infrastructure.adapter.input.dto.response.CartProd
 import com.indra.shoppingcart.infrastructure.adapter.input.mapper.CartProductMapper;
 
 @WebMvcTest(CartProductController.class)
-public class CartProductControllerTest {
+class CartProductControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -51,7 +51,7 @@ public class CartProductControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void testAddProduct() throws Exception {
+    void testAddProduct() throws Exception {
         CartProductRequest request = CartProductRequest.builder()
                 .userId(1)
                 .productId(1)
@@ -72,7 +72,7 @@ public class CartProductControllerTest {
     }
 
     @Test
-    public void testDeleteProduct() throws Exception {
+    void testDeleteProduct() throws Exception {
         DeleteCartProductRequest request = DeleteCartProductRequest.builder()
                 .cartProductId(1)
                 .userId(1)
@@ -85,7 +85,7 @@ public class CartProductControllerTest {
     }
 
     @Test
-    public void testUpdateProduct() throws Exception {
+    void testUpdateProduct() throws Exception {
         UpdateCartProductRequest request = UpdateCartProductRequest.builder()
                 .cartProductId(1)
                 .userId(1)

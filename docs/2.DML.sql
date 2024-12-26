@@ -11,7 +11,7 @@ INSERT INTO public.tb_product (id, name, unit_price, stock) VALUES (5, 'Watermel
 INSERT INTO public.tb_product (id, name, unit_price, stock) VALUES (6, 'Pineapple', 3.0, 80);
 INSERT INTO public.tb_product (id, name, unit_price, stock) VALUES (7, 'Strawberry', 4.0, 100);
 
-INSERT INTO public.tb_coupon (id, code, discount_percentage, start_date, expiration_date, beneficiary) VALUES (1, 'SUMMER2024', 2, '2024-06-01', '2024-09-01', 1);
+INSERT INTO public.tb_coupon (id, code, discount_percentage, start_date, expiration_date, beneficiary) VALUES (1, 'SUMMER2024', 2, '2024-06-01', '2024-12-31', 1);
 
 INSERT INTO public.tb_discount (id, product, discount_percentage, start_month, expiration_month) VALUES (1, 1, 5, 1, 6);
 INSERT INTO public.tb_discount (id, product, discount_percentage, start_month, expiration_month) VALUES (2, 2, 15, 7, 12);

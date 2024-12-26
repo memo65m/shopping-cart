@@ -44,6 +44,8 @@ public class CartProductController {
     private final UpdateCartProductUseCase updateCartProductUseCase;
     private final CartProductMapper cartProductMapper;
 
+    private static final String SUCCESS_MESSAGE = "Operación exitosa";
+
     @ApiOperation(value = "Add Product", notes = "Add product to shopping cart")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operation successful"),
@@ -62,7 +64,7 @@ public class CartProductController {
         cartProduct = createCartProductUseCase.execute(cartProduct);
 
         ResponseDto<CartProductResponse> responseDto = ResponseDto.<CartProductResponse>builder()
-                .message("Operación exitosa")
+                .message(SUCCESS_MESSAGE)
                 .value(cartProductMapper.cartProductToCartProductResponse(cartProduct))
                 .build();
 
@@ -87,7 +89,7 @@ public class CartProductController {
         deleteCartProductUseCase.execute(request.getCartProductId(), request.getUserId());
 
         ResponseDto<String> responseDto = ResponseDto.<String>builder()
-                .message("Operación exitosa")
+                .message(SUCCESS_MESSAGE)
                 .value("Producto eliminado")
                 .build();
 
@@ -112,7 +114,7 @@ public class CartProductController {
         String result = updateCartProductUseCase.execute(cartProduct);
 
         ResponseDto<String> responseDto = ResponseDto.<String>builder()
-                .message("Operación exitosa")
+                .message(SUCCESS_MESSAGE)
                 .value(result)
                 .build();
 

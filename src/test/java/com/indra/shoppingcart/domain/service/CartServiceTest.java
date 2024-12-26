@@ -21,7 +21,7 @@ import com.indra.shoppingcart.domain.model.Cart;
 import com.indra.shoppingcart.domain.model.Coupon;
 
 @ExtendWith(MockitoExtension.class)
-public class CartServiceTest {
+class CartServiceTest {
 
     @Mock
     private CartRepository cartRepository;
@@ -33,7 +33,7 @@ public class CartServiceTest {
     private CartService cartService;
 
     @Test
-    public void testGetCartByUser_CartExists() {
+    void testGetCartByUser_CartExists() {
         Integer userId = 1;
         Cart cart = Cart.builder().build();
         when(cartRepository.existsCartByUserId(userId)).thenReturn(true);
@@ -47,7 +47,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void testGetCartByUser_CartDoesNotExist() {
+    void testGetCartByUser_CartDoesNotExist() {
         Integer userId = 1;
         when(cartRepository.existsCartByUserId(userId)).thenReturn(false);
 
@@ -59,7 +59,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void testCreateCart_CartDoesNotExist() {
+    void testCreateCart_CartDoesNotExist() {
         Integer userId = 1;
         when(cartRepository.existsCartByUserId(userId)).thenReturn(false);
 
@@ -70,7 +70,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void testCreateCart_CartExists() {
+    void testCreateCart_CartExists() {
         Integer userId = 1;
         when(cartRepository.existsCartByUserId(userId)).thenReturn(true);
 
@@ -81,7 +81,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void testAssignCoupon_CouponIsActiveAndNotAssigned() {
+    void testAssignCoupon_CouponIsActiveAndNotAssigned() {
         Integer userId = 1;
         String couponCode = "COUPON123";
         Coupon coupon = Coupon.builder()
@@ -100,7 +100,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void testAssignCoupon_CouponIsNotActive() {
+    void testAssignCoupon_CouponIsNotActive() {
         Integer userId = 1;
         String couponCode = "COUPON123";
         Coupon coupon = Coupon.builder()
@@ -119,7 +119,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void testAssignCoupon_CouponAlreadyAssigned() {
+    void testAssignCoupon_CouponAlreadyAssigned() {
         Integer userId = 1;
         String couponCode = "COUPON123";
 

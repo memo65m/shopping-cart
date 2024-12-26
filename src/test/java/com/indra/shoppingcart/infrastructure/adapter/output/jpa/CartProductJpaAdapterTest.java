@@ -1,4 +1,4 @@
-package com.indra.shoppingcart.infrastructure.adapter.output.jpaAdapter;
+package com.indra.shoppingcart.infrastructure.adapter.output.jpa;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,7 +23,7 @@ import com.indra.shoppingcart.infrastructure.adapter.output.mapper.CartProductEn
 import com.indra.shoppingcart.infrastructure.adapter.output.repository.CartProductJpaRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class CartProductJpaAdapterTest {
+class CartProductJpaAdapterTest {
 
     @Mock
     private CartProductJpaRepository cartProductJpaRepository;
@@ -35,7 +35,7 @@ public class CartProductJpaAdapterTest {
     private CartProductJpaAdapter cartProductJpaAdapter;
 
     @Test
-    public void testCreateCartProduct() {
+    void testCreateCartProduct() {
         CartProduct cartProduct = new CartProduct();
         CartProductEntity cartProductEntity = new CartProductEntity();
 
@@ -52,7 +52,7 @@ public class CartProductJpaAdapterTest {
     }
 
     @Test
-    public void testExistsCartProduct() {
+    void testExistsCartProduct() {
         Integer cartId = 1;
         Integer productId = 1;
 
@@ -65,7 +65,7 @@ public class CartProductJpaAdapterTest {
     }
 
     @Test
-    public void testUpdateQuantity() {
+    void testUpdateQuantity() {
         CartProductEntity cartProductEntity = new CartProductEntity();
         CartProduct cartProduct = CartProduct.builder()
                 .cart(Cart.builder().id(1).build())
@@ -89,7 +89,7 @@ public class CartProductJpaAdapterTest {
     }
 
     @Test
-    public void testUpdateQuantity_NotFound() {
+    void testUpdateQuantity_NotFound() {
         CartProduct cartProduct = CartProduct.builder()
                 .cart(Cart.builder().id(1).build())
                 .product(Product.builder().id(1).build())
@@ -106,7 +106,7 @@ public class CartProductJpaAdapterTest {
     }
 
     @Test
-    public void testDeleteCartProduct() {
+    void testDeleteCartProduct() {
         Integer cartProductId = 1;
         Integer userId = 1;
         CartProductEntity cartProductEntity = new CartProductEntity();
@@ -121,7 +121,7 @@ public class CartProductJpaAdapterTest {
     }
 
     @Test
-    public void testDeleteCartProduct_NotFound() {
+    void testDeleteCartProduct_NotFound() {
         Integer cartProductId = 1;
         Integer userId = 1;
 
@@ -132,7 +132,7 @@ public class CartProductJpaAdapterTest {
     }
 
     @Test
-    public void testGetCartProductById() {
+    void testGetCartProductById() {
         Integer cartProductId = 1;
         CartProductEntity cartProductEntity = new CartProductEntity();
         CartProduct cartProduct = new CartProduct();
@@ -148,7 +148,7 @@ public class CartProductJpaAdapterTest {
     }
 
     @Test
-    public void testGetCartProductById_NotFound() {
+    void testGetCartProductById_NotFound() {
         Integer cartProductId = 1;
 
         when(cartProductJpaRepository.findById(cartProductId)).thenReturn(Optional.empty());
@@ -158,7 +158,7 @@ public class CartProductJpaAdapterTest {
     }
 
     @Test
-    public void testUpdateQuantityById() {
+    void testUpdateQuantityById() {
         Integer cartProductId = 1;
         Integer quantity = 10;
         CartProductEntity cartProductEntity = new CartProductEntity();
@@ -173,7 +173,7 @@ public class CartProductJpaAdapterTest {
     }
 
     @Test
-    public void testUpdateQuantityById_NotFound() {
+    void testUpdateQuantityById_NotFound() {
         Integer cartProductId = 1;
         Integer quantity = 10;
 

@@ -1,4 +1,4 @@
-package com.indra.shoppingcart.infrastructure.adapter.output.jpaAdapter;
+package com.indra.shoppingcart.infrastructure.adapter.output.jpa;
 
 import com.indra.shoppingcart.application.ports.output.CartRepository;
 import com.indra.shoppingcart.domain.exception.NotFoundException;

@@ -28,8 +28,8 @@ Antes de ejecutar el proyecto, asegúrese de tener creada una base de datos con 
 3. Ejecute el archivo `2.DML.sql` para poblar la base de datos con datos iniciales.
 
 ```bash
-./docs/DDL.sql
-./docs/DML.sql
+./docs/1.DDL.sql
+./docs/2.DML.sql
 ```
 
 ## Modelo Entidad-Relación
@@ -37,6 +37,12 @@ Antes de ejecutar el proyecto, asegúrese de tener creada una base de datos con 
 A continuación se presenta el diagrama modelo entidad-relación (ER) de la API de Carrito de Compras. Este modelo proporciona una visión general de la estructura de la base de datos utilizada en el proyecto.
 
 ![Modelo Entidad-Relación](docs/3.ER_Model.png)
+
+***Nota:** el diagrama lo puedes encontrar en la siguiente ubicación:* 
+
+```bash
+./docs/3.ER_Model.png
+```
 
 ## Cómo Ejecutar el Proyecto
 

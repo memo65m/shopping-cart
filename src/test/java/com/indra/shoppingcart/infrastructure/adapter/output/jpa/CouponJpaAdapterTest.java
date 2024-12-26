@@ -1,4 +1,4 @@
-package com.indra.shoppingcart.infrastructure.adapter.output.jpaAdapter;
+package com.indra.shoppingcart.infrastructure.adapter.output.jpa;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -19,7 +19,7 @@ import com.indra.shoppingcart.infrastructure.adapter.output.mapper.CouponEntityM
 import com.indra.shoppingcart.infrastructure.adapter.output.repository.CouponJpaRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class CouponJpaAdapterTest {
+class CouponJpaAdapterTest {
 
     @Mock
     private CouponJpaRepository couponJpaRepository;
@@ -31,7 +31,7 @@ public class CouponJpaAdapterTest {
     private CouponJpaAdapter couponJpaAdapter;
 
     @Test
-    public void testGetCoupon_Success() {
+    void testGetCoupon_Success() {
         Integer userId = 1;
         String couponCode = "TESTCODE";
         CouponEntity couponEntity = new CouponEntity();
@@ -46,7 +46,7 @@ public class CouponJpaAdapterTest {
     }
 
     @Test
-    public void testGetCoupon_NotFound() {
+    void testGetCoupon_NotFound() {
         Integer userId = 1;
         String couponCode = "INVALIDCODE";
 

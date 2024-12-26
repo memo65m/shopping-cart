@@ -26,13 +26,13 @@ public interface CartEntityMapper {
     @BeforeMapping
     default void beforeEntityToModel(@MappingTarget Cart.CartBuilder cart, CartEntity cartEntity) {
 
-        if (cartEntity != null && cartEntity != null) {
+        if (cart != null && cartEntity != null) {
             Double subTotal = cartEntity.getCartProducts().stream()
                     .mapToDouble(cartProductEntity -> cartProductEntity.getProduct().getUnitPrice() *
                             cartProductEntity.getQuantity())
                     .sum();
 
-            subTotal = new BigDecimal(subTotal).setScale(3, RoundingMode.HALF_UP).doubleValue();
+            subTotal = BigDecimal.valueOf(subTotal).setScale(3, RoundingMode.HALF_UP).doubleValue();
 
             cart.subTotal(subTotal);
         }
@@ -41,7 +41,7 @@ public interface CartEntityMapper {
     @AfterMapping
     default void afterEntityToModel(@MappingTarget Cart.CartBuilder cart, CartEntity cartEntity) {
 
-        if (cartEntity != null && cartEntity != null) {
+        if (cart != null && cartEntity != null) {
 
             Cart cartTmp = cart.build();
 
@@ -74,7 +74,7 @@ public interface CartEntityMapper {
                 cart.discountCoupon(discountCoupon);
             }
 
-            Double total = new BigDecimal(cart.build().getTotal()).setScale(3, RoundingMode.HALF_UP).doubleValue();
+            Double total = BigDecimal.valueOf(cart.build().getTotal()).setScale(3, RoundingMode.HALF_UP).doubleValue();
             cart.total(total);
         }
     }
