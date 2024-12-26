@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.indra.shoppingcart.application.ports.input.CreateCartProductUseCase;
 import com.indra.shoppingcart.application.ports.input.CreateCartUseCase;
+import com.indra.shoppingcart.application.ports.input.DeleteCartProductUseCase;
 import com.indra.shoppingcart.application.ports.input.GetCartUseCase;
 import com.indra.shoppingcart.application.ports.output.CartProductRepository;
 import com.indra.shoppingcart.application.ports.output.CartRepository;
@@ -65,6 +66,11 @@ public class AppConfig {
     @Bean
     CreateCartProductUseCase createCartProductUseCase(CartProductService cartProductService) {
         return cartProductService::createCartProduct;
+    }
+
+    @Bean
+    DeleteCartProductUseCase deleteCartProductUseCase(CartProductService cartProductService) {
+        return cartProductService::deleteCartProduct;
     }
 
 }

@@ -34,4 +34,10 @@ public class CartProductJpaAdapter implements CartProductRepository {
         return cartProductEntityMapper.entityToModel(cartProductEntity);
     }
 
+    public void deleteCartProduct(Integer cartProductId, Integer userId) {
+        CartProductEntity cartProductEntity = cartProductJpaRepository.findByIdAndCart_User_Id(cartProductId, userId)
+                .orElseThrow(() -> new RuntimeException("CartProduct not found"));
+        cartProductJpaRepository.deleteById(cartProductEntity.getId());
+    }
+
 }

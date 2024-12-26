@@ -43,4 +43,9 @@ public class CartProductService {
 
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public void deleteCartProduct(Integer cartProductId, Integer userId) {
+        cartProductRepository.deleteCartProduct(cartProductId, userId);
+    }
+
 }
