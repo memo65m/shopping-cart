@@ -7,6 +7,7 @@ import com.indra.shoppingcart.application.ports.input.CreateCartProductUseCase;
 import com.indra.shoppingcart.application.ports.input.CreateCartUseCase;
 import com.indra.shoppingcart.application.ports.input.DeleteCartProductUseCase;
 import com.indra.shoppingcart.application.ports.input.GetCartUseCase;
+import com.indra.shoppingcart.application.ports.input.UpdateCartProductUseCase;
 import com.indra.shoppingcart.application.ports.output.CartProductRepository;
 import com.indra.shoppingcart.application.ports.output.CartRepository;
 import com.indra.shoppingcart.application.ports.output.ProductRepository;
@@ -71,6 +72,11 @@ public class AppConfig {
     @Bean
     DeleteCartProductUseCase deleteCartProductUseCase(CartProductService cartProductService) {
         return cartProductService::deleteCartProduct;
+    }
+
+    @Bean
+    UpdateCartProductUseCase updateCartProductUseCase(CartProductService cartProductService) {
+        return cartProductService::updateCartProduct;
     }
 
 }

@@ -25,13 +25,10 @@ public class CartProductService {
 
         Product product = productRepository.getProductById(cartProduct.getProduct().getId());
         Cart cart = cartRepository.getCartByUserId(cartProduct.getCart().getUser().getId());
-        Boolean existsCartProduct = cartProductRepository.existsCartProduct(cart.getId(),
-                cartProduct.getProduct().getId());
+        Boolean existsCartProduct = cartProductRepository.existsCartProduct(cart.getId(), product.getId());
         cartProduct.setCart(cart);
 
-        if (cartProduct.getQuantity() > product.getStock()) {
-            throw new BadRequestException("Stock insuficiente");
-        }
+        validateQuantity(cartProduct.getQuantity(), product.getStock());
 
         if (Boolean.TRUE.equals(existsCartProduct)) {
             cartProduct = cartProductRepository.updateQuantity(cartProduct);
@@ -46,6 +43,34 @@ public class CartProductService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void deleteCartProduct(Integer cartProductId, Integer userId) {
         cartProductRepository.deleteCartProduct(cartProductId, userId);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public String updateCartProduct(CartProduct cartProduct) {
+
+        String result = "";
+        Integer userId = cartProduct.getCart().getUser().getId();
+        CartProduct cartProductDB = cartProductRepository.getCartProductById(cartProduct.getId());
+        cartProduct.setCart(cartProductDB.getCart());
+
+        validateQuantity(cartProduct.getQuantity(), cartProductDB.getProduct().getStock());
+
+        if (cartProduct.getQuantity() == 0) {
+            result = "Produto removido del carrito";
+            cartProductRepository.deleteCartProduct(cartProduct.getId(), userId);
+        } else {
+            result = "Cantidad actualizada";
+            cartProductRepository.updateQuantity(cartProduct.getId(), cartProduct.getQuantity());
+        }
+
+        return result;
+        
+    }
+
+    private void validateQuantity(Integer quantity, Integer stock) {
+        if (quantity> stock) {
+            throw new BadRequestException("Stock insuficiente");
+        }
     }
 
 }

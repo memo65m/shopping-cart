@@ -1,6 +1,7 @@
 package com.indra.shoppingcart.infrastructure.adapter.output.jpaAdapter;
 
 import com.indra.shoppingcart.application.ports.output.CartProductRepository;
+import com.indra.shoppingcart.domain.exception.NotFoundException;
 import com.indra.shoppingcart.domain.model.CartProduct;
 import com.indra.shoppingcart.infrastructure.adapter.output.entity.CartProductEntity;
 import com.indra.shoppingcart.infrastructure.adapter.output.mapper.CartProductEntityMapper;
@@ -27,7 +28,7 @@ public class CartProductJpaAdapter implements CartProductRepository {
     public CartProduct updateQuantity(CartProduct cartProduct) {
         CartProductEntity cartProductEntity = cartProductJpaRepository
                 .findByCart_IdAndProduct_Id(cartProduct.getCart().getId(), cartProduct.getProduct().getId())
-                .orElseThrow(() -> new RuntimeException("CartProduct not found"));
+                .orElseThrow(() -> new NotFoundException("CartProduct not found"));
 
         cartProductEntity.setQuantity(cartProduct.getQuantity());
         cartProductEntity = cartProductJpaRepository.save(cartProductEntity);
@@ -36,8 +37,21 @@ public class CartProductJpaAdapter implements CartProductRepository {
 
     public void deleteCartProduct(Integer cartProductId, Integer userId) {
         CartProductEntity cartProductEntity = cartProductJpaRepository.findByIdAndCart_User_Id(cartProductId, userId)
-                .orElseThrow(() -> new RuntimeException("CartProduct not found"));
+                .orElseThrow(() -> new NotFoundException("CartProduct not found"));
         cartProductJpaRepository.deleteById(cartProductEntity.getId());
+    }
+
+    public CartProduct getCartProductById(Integer cartProductId) {
+        CartProductEntity cartProductEntity = cartProductJpaRepository.findById(cartProductId)
+                .orElseThrow(() -> new NotFoundException("CartProduct not found"));
+        return cartProductEntityMapper.entityToModel(cartProductEntity);
+    }
+
+    public void updateQuantity(Integer cartProductId, Integer quantity) {
+        CartProductEntity cartProductEntity = cartProductJpaRepository.findById(cartProductId)
+                .orElseThrow(() -> new NotFoundException("CartProduct not found"));
+        cartProductEntity.setQuantity(quantity);
+        cartProductJpaRepository.save(cartProductEntity);
     }
 
 }

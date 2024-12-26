@@ -6,5 +6,7 @@ public interface CartProductRepository {
     CartProduct createCartProduct(CartProduct cartProduct);
     Boolean existsCartProduct(Integer cardId, Integer productId);
     CartProduct updateQuantity(CartProduct cartProduct);
+    void updateQuantity(Integer cartProductId, Integer quantity);
     void deleteCartProduct(Integer cartProductId, Integer userId);
+    CartProduct getCartProductById(Integer cartProductId);
 }
