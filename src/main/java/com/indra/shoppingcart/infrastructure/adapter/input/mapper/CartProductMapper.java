@@ -20,6 +20,7 @@ public interface CartProductMapper {
     CartProduct updateCartProductRequestToCartProduct(UpdateCartProductRequest updateCartProductRequest);
 
     @Mapping(target = "product", ignore = true)
+    @Mapping(target = "subTotal", ignore = true)
     CartProductResponse cartProductToCartProductResponse(CartProduct cartProduct);
 
 }
