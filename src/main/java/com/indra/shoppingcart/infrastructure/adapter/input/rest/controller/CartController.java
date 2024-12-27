@@ -52,10 +52,11 @@ public class CartController {
     public ResponseEntity<ResponseDto<CartResponse>> getCartByUser(@RequestParam(value = "userId") Integer userId) {
 
         Cart cart = getCartUseCase.execute(userId);
+        CartResponse cartResponse = cart != null ? cartMapper.cartToCartResponse(cart) : null;
 
         ResponseDto<CartResponse> responseDto = ResponseDto.<CartResponse>builder()
                 .message("Operación exitosa")
-                .value(cartMapper.cartToCartResponse(cart))
+                .value(cartResponse)
                 .build();
 
         return new ResponseEntity<>(responseDto, HttpStatus.OK);

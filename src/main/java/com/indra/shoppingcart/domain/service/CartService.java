@@ -24,7 +24,7 @@ public class CartService {
     @Transactional(readOnly = true)
     public Cart getCartByUser(Integer userId) {
         Boolean exists = cartRepository.existsCartByUserId(userId);
-        Cart cart = Cart.builder().build();
+        Cart cart = null;
         if (Boolean.TRUE.equals(exists)) {
             cart = cartRepository.getCartByUserId(userId);
         }

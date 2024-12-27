@@ -2,6 +2,7 @@ package com.indra.shoppingcart.domain.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -58,7 +59,7 @@ class CartServiceTest {
 
         Cart result = cartService.getCartByUser(userId);
 
-        assertNotNull(result);
+        assertNull(result);
         verify(cartRepository).existsCartByUserId(userId);
         verify(cartRepository, never()).getCartByUserId(userId);
     }

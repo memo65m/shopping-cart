@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class CartProduct {
     private Integer id;
     private Integer quantity;
+    private Double subTotal;
     private Cart cart;
     private Product product;
 }

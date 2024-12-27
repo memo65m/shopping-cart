@@ -20,6 +20,7 @@ public class CartProductResponse implements Serializable {
 
     private Integer id;
     private Integer quantity;
+    private Double subTotal;
     private ProductResponse product;
     
 }
