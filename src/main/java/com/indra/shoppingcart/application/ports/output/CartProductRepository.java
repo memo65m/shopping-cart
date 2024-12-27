@@ -8,5 +8,5 @@ public interface CartProductRepository {
     CartProduct updateQuantity(CartProduct cartProduct);
     void updateQuantity(Integer cartProductId, Integer quantity);
     void deleteCartProduct(Integer cartProductId, Integer userId);
-    CartProduct getCartProductById(Integer cartProductId);
+    CartProduct getCartProductById(Integer cartProductId, Integer userId);
 }

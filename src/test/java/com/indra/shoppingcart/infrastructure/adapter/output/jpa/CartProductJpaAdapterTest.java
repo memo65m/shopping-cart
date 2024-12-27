@@ -134,27 +134,29 @@ class CartProductJpaAdapterTest {
     @Test
     void testGetCartProductById() {
         Integer cartProductId = 1;
+        Integer userId = 1;
         CartProductEntity cartProductEntity = new CartProductEntity();
         CartProduct cartProduct = new CartProduct();
 
-        when(cartProductJpaRepository.findById(cartProductId)).thenReturn(Optional.of(cartProductEntity));
+        when(cartProductJpaRepository.findByIdAndCart_User_Id(cartProductId, userId)).thenReturn(Optional.of(cartProductEntity));
         when(cartProductEntityMapper.entityToModel(cartProductEntity)).thenReturn(cartProduct);
 
-        CartProduct result = cartProductJpaAdapter.getCartProductById(cartProductId);
+        CartProduct result = cartProductJpaAdapter.getCartProductById(cartProductId, userId);
 
         assertEquals(cartProduct, result);
-        verify(cartProductJpaRepository).findById(cartProductId);
+        verify(cartProductJpaRepository).findByIdAndCart_User_Id(cartProductId, userId);
         verify(cartProductEntityMapper).entityToModel(cartProductEntity);
     }
 
     @Test
     void testGetCartProductById_NotFound() {
         Integer cartProductId = 1;
+        Integer userId = 1;
 
-        when(cartProductJpaRepository.findById(cartProductId)).thenReturn(Optional.empty());
+        when(cartProductJpaRepository.findByIdAndCart_User_Id(cartProductId, userId)).thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> cartProductJpaAdapter.getCartProductById(cartProductId));
-        verify(cartProductJpaRepository).findById(cartProductId);
+        assertThrows(NotFoundException.class, () -> cartProductJpaAdapter.getCartProductById(cartProductId, userId));
+        verify(cartProductJpaRepository).findByIdAndCart_User_Id(cartProductId, userId);
     }
 
     @Test

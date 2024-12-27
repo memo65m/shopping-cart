@@ -130,7 +130,7 @@ class CartProductServiceTest {
                 .product(product)
                 .build();
 
-        when(cartProductRepository.getCartProductById(anyInt())).thenReturn(cartProductDB);
+        when(cartProductRepository.getCartProductById(anyInt(), anyInt())).thenReturn(cartProductDB);
         doNothing().when(cartProductRepository).updateQuantity(anyInt(), anyInt());
 
         String result = cartProductService.updateCartProduct(cartProduct);
@@ -163,7 +163,7 @@ class CartProductServiceTest {
                 .product(product)
                 .build();
 
-        when(cartProductRepository.getCartProductById(anyInt())).thenReturn(cartProductDB);
+        when(cartProductRepository.getCartProductById(anyInt(), anyInt())).thenReturn(cartProductDB);
         doNothing().when(cartProductRepository).deleteCartProduct(anyInt(), anyInt());
 
         String result = cartProductService.updateCartProduct(cartProduct);

@@ -50,7 +50,7 @@ public class CartProductService {
 
         String result = "";
         Integer userId = cartProduct.getCart().getUser().getId();
-        CartProduct cartProductDB = cartProductRepository.getCartProductById(cartProduct.getId());
+        CartProduct cartProductDB = cartProductRepository.getCartProductById(cartProduct.getId(), userId);
         cartProduct.setCart(cartProductDB.getCart());
 
         validateQuantity(cartProduct.getQuantity(), cartProductDB.getProduct().getStock());
